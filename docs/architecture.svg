@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="740" viewBox="0 0 1200 740" role="img" aria-labelledby="title desc">
+  <title id="title">ShopLedger architecture and order placement</title>
+  <desc id="desc">Static browser UI calls Express. Four routers use the library modules and JSON store. Numbered orange arrows trace a new order.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#986029"/>
+    </marker>
+    <style>
+      .heading{font:700 36px system-ui, sans-serif;fill:#142235}
+      .label{font:700 18px system-ui, sans-serif;fill:#142235}
+      .copy{font:15px system-ui, sans-serif;fill:#3d5269}
+      .code{font:600 16px monospace;fill:#142235}
+      .card{fill:#fff;stroke:#ccd9e6;stroke-width:1.5}
+      .flow{fill:#fff2e5;stroke:#d18b50;stroke-width:2}
+      .line{fill:none;stroke:#986029;stroke-width:2.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="740" fill="#eff4f8"/>
+  <text class="heading" x="48" y="62">ShopLedger architecture</text>
+  <text class="copy" x="48" y="94">Orange arrows follow a new order from the POS to the JSON store.</text>
+
+  <rect class="flow" x="48" y="126" width="295" height="91" rx="12"/>
+  <text class="label" x="68" y="157">Browser POS and audit UI</text>
+  <text class="copy" x="68" y="184">public/index.html · public/js/app.js</text>
+  <rect class="flow" x="433" y="126" width="307" height="91" rx="12"/>
+  <text class="code" x="453" y="157">server.js</text>
+  <text class="copy" x="453" y="184">Express · static files · API mount</text>
+  <rect class="card" x="833" y="126" width="319" height="91" rx="12"/>
+  <text class="code" x="853" y="157">config.js</text>
+  <text class="copy" x="853" y="184">GST rates, coupons, shop and port</text>
+  <path class="line" d="M343 171 H431"/>
+  <text class="copy" x="373" y="158">1</text>
+
+  <text class="label" x="48" y="263">Express routers</text>
+  <rect class="card" x="48" y="281" width="257" height="79" rx="11"/>
+  <text class="code" x="66" y="309">routes/products.js</text><text class="copy" x="66" y="335">Catalog and coupons</text>
+  <rect class="flow" x="328" y="281" width="262" height="79" rx="11"/>
+  <text class="code" x="346" y="309">routes/orders.js</text><text class="copy" x="346" y="335">Place, list and cancel orders</text>
+  <rect class="card" x="612" y="281" width="264" height="79" rx="11"/>
+  <text class="code" x="630" y="309">routes/customers.js</text><text class="copy" x="630" y="335">Khata accounts and settlements</text>
+  <rect class="card" x="898" y="281" width="254" height="79" rx="11"/>
+  <text class="code" x="916" y="309">routes/reports.js</text><text class="copy" x="916" y="335">Dashboard and GST audit</text>
+  <path class="line" d="M478 217 V279"/><text class="copy" x="490" y="250">2 · POST /api/orders</text>
+
+  <text class="label" x="48" y="409">Library modules</text>
+  <rect class="flow" x="48" y="426" width="568" height="120" rx="12"/>
+  <text class="label" x="68" y="455">3 · Validate and calculate</text>
+  <text class="code" x="68" y="486">inventory.js   pricing.js    coupons.js   tax.js</text>
+  <text class="copy" x="68" y="515">Find products, check sellable stock, validate discounts and calculate GST.</text>
+  <rect class="flow" x="639" y="426" width="513" height="120" rx="12"/>
+  <text class="label" x="659" y="455">4 · Record the order</text>
+  <text class="code" x="659" y="486">orders.js     ledger.js     dates.js</text>
+  <text class="copy" x="659" y="515">Update stock, charge Khata when selected and date the order.</text>
+  <path class="line" d="M459 360 V424"/><path class="line" d="M616 488 H637"/>
+
+  <rect class="card" x="48" y="590" width="447" height="93" rx="12"/>
+  <text class="code" x="68" y="620">invoice.js     reports.js</text>
+  <text class="copy" x="68" y="647">Printable invoice via server.js and GST audit via reports.</text>
+  <rect class="flow" x="518" y="590" width="295" height="93" rx="12"/>
+  <text class="code" x="538" y="620">5 · store.js</text>
+  <text class="copy" x="538" y="647">Append audit and write snapshot.</text>
+  <rect class="flow" x="855" y="590" width="297" height="93" rx="12"/>
+  <text class="code" x="875" y="620">data/db.json</text>
+  <text class="copy" x="875" y="647">Products, orders, customers, audit.</text>
+  <path class="line" d="M746 546 V588"/><path class="line" d="M813 638 H853"/>
+  <text class="copy" x="48" y="714">The order endpoint responds with HTTP 201 and the saved order.</text>
+</svg>
